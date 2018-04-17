@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  redis:
+    container_name: redis
+    image: redis:3.2-alpine
+    command: redis-server --requirepass devpassword
+    volumes:
+      - 'redis:/data'
+    ports:
+      - '6379:6379'
+
+  website:
+    build: .
+    container_name: website
+    command: >
+      python3 api.py
+    environment:
+      PYTHONUNBUFFERED: 'true'
+    volumes:
+      - '.:/app'
+    ports:
+      - '5000:5000'
+
+  celery:
+    container_name: worker
+    build: .
+    command: celery worker -l info
+    volumes:
+      - '.:/app'
+
+volumes:
+  redis:

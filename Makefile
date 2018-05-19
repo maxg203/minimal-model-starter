@@ -1,3 +1,7 @@
+restart:
+	docker-compose down
+	docker-compose up -d
+
 up:
 	docker-compose up -d --build
 
@@ -12,6 +16,12 @@ test_coverage:
 
 shell:
 	docker exec -it website bash
+
+redis:
+	docker exec -it redis bash
+
+worker:
+	docker exec -it worker bash
 
 badge:
 	docker exec -it website pytest --cov=.

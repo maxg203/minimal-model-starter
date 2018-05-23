@@ -6,6 +6,11 @@ TASKS = {}
 
 @app.route('/', methods=['GET'])
 def list_tasks():
+    task_id = request.args.get('id')
+    if task_id and task_id.isdigit():
+        task = TASKS[int(task_id)]
+        return jsonify(task.get())
+
     tasks = {task_id: {'ready': task.ready()}
             for task_id, task in TASKS.items()}
     return jsonify(tasks)
@@ -21,10 +26,8 @@ def put_task():
 
     task_id = len(TASKS)
     TASKS[task_id] = integrate.delay(f, a, b, c, d, size)
-    response = {
-        'result': task_id,
-    }
-    return jsonify(response)
+    return jsonify({'result': task_id})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
+

@@ -26,7 +26,7 @@ def put_task():
 
     task_id = len(TASKS)
     TASKS[task_id] = integrate.delay(f, a, b, c, d, size)
-    return jsonify({'result': task_id})
+    return jsonify({'task_id': task_id})
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

@@ -13,7 +13,7 @@ Jinja2==2.10
 kombu==4.1.0
 MarkupSafe==1.0
 mpmath==1.0.0
-numpy==1.14.2
+numpy==1.22.0
 Pygments==2.2.0
 pytz==2018.4
 redis==2.10.6
